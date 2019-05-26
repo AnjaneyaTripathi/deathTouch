@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -45,60 +47,67 @@ public class Main2Activity extends AppCompatActivity {
         String message = "Enter a number!";
         String chances;
         String Guess = guess.getText().toString();
-        int g = Integer.parseInt(Guess);
+        String check = guess.getText().toString().trim();
 
-        if (attempts > 0) {
-            if (age == g) {
-                message = "Woah, you've got the death touch!";
-                diff = 0;
-                attempts = 1;
-                layout.setBackgroundColor(Color.parseColor("#00FF00"));
-                correct++;
-            } else {
-                message = "Oof! You're wrong my child!";
-                diff = java.lang.Math.abs(age - g);
-                //indicating too high or low
-                if (age > g) {
-                    message = message + " Don't kill him too soon.";
+        if (check.isEmpty() || check.length() == 0 || check.equals("") || check == null || TextUtils.isEmpty(check) || "".equals(check)) {
+            guess.setText("");
+            Log.i("Hello", "Hello");
+        }
+        else {
+            int g = Integer.parseInt(Guess);
+            if (attempts > 0) {
+                if (age == g) {
+                    message = "Woah, you've got the death touch!";
+                    diff = 0;
+                    attempts = 1;
+                    layout.setBackgroundColor(Color.parseColor("#00FF00"));
+                    correct++;
                 } else {
-                    message = message + " He's overstaying...";
-                }
-                //altering background color
-                if (diff < 10) {
-                    layout.setBackgroundColor(Color.parseColor("#33FF00"));
-                } else if (diff < 20) {
-                    layout.setBackgroundColor(Color.parseColor("#66FF00"));
-                } else if (diff < 30) {
-                    layout.setBackgroundColor(Color.parseColor("#99FF00"));
-                } else if (diff < 40) {
-                    layout.setBackgroundColor(Color.parseColor("#CCFF00"));
-                } else if (diff < 50) {
-                    layout.setBackgroundColor(Color.parseColor("#FFFF00"));
-                } else if (diff < 60) {
-                    layout.setBackgroundColor(Color.parseColor("#FFCC00"));
-                } else if (diff < 70) {
-                    layout.setBackgroundColor(Color.parseColor("#FF9900"));
-                } else if (diff < 80) {
-                    layout.setBackgroundColor(Color.parseColor("#FF6600"));
-                } else if (diff < 90) {
-                    layout.setBackgroundColor(Color.parseColor("#FF3300"));
-                } else {
-                    layout.setBackgroundColor(Color.parseColor("#FF0000"));
+                    message = "Oof! You're wrong my child!";
+                    diff = java.lang.Math.abs(age - g);
+                    //indicating too high or low
+                    if (age > g) {
+                        message = message + " Don't kill him too soon.";
+                    } else {
+                        message = message + " He's overstaying...";
+                    }
+                    //altering background color
+                    if (diff < 10) {
+                        layout.setBackgroundColor(Color.parseColor("#33FF00"));
+                    } else if (diff < 20) {
+                        layout.setBackgroundColor(Color.parseColor("#66FF00"));
+                    } else if (diff < 30) {
+                        layout.setBackgroundColor(Color.parseColor("#99FF00"));
+                    } else if (diff < 40) {
+                        layout.setBackgroundColor(Color.parseColor("#CCFF00"));
+                    } else if (diff < 50) {
+                        layout.setBackgroundColor(Color.parseColor("#FFFF00"));
+                    } else if (diff < 60) {
+                        layout.setBackgroundColor(Color.parseColor("#FFCC00"));
+                    } else if (diff < 70) {
+                        layout.setBackgroundColor(Color.parseColor("#FF9900"));
+                    } else if (diff < 80) {
+                        layout.setBackgroundColor(Color.parseColor("#FF6600"));
+                    } else if (diff < 90) {
+                        layout.setBackgroundColor(Color.parseColor("#FF3300"));
+                    } else {
+                        layout.setBackgroundColor(Color.parseColor("#FF0000"));
+                    }
                 }
             }
-        }
-        //reset the editText, display the result and decrement the number of tries
-        result.setText(message);
-        guess.setText("");
-        attempts--;
-        chances = "You have " + attempts + " chances left!";
-        status.setText(chances);
+            //reset the editText, display the result and decrement the number of tries
+            result.setText(message);
+            guess.setText("");
+            attempts--;
+            chances = "You have " + attempts + " chances left!";
+            status.setText(chances);
 
-        if (attempts == 0) {
+            if (attempts == 0) {
 
-            Handler handler = new Handler();
-            handler.postDelayed(displayRunnable, 1000);
-            wrong++;
+                Handler handler = new Handler();
+                handler.postDelayed(displayRunnable, 1000);
+                wrong++;
+            }
         }
     }
 

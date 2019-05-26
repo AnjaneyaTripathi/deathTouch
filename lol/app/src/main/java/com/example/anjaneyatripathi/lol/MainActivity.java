@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
     public void proceed(View view) {
         String a = age.getText().toString();
         String check = age.getText().toString().trim();
-        int Age = Integer.parseInt(a);
         int Attempts;
         if (check.isEmpty() || check.length() == 0 || check.equals("") || check == null || TextUtils.isEmpty(check) || "".equals(check)) {
+            int Age;
             Log.i("Hello", "Hello");
             Random alternateAge = new Random();
             Age = 1 + alternateAge.nextInt(99);
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             age.setText("");
         }
         else {
+            int Age = Integer.parseInt(a);
             if (Age < 101) {
                 Attempts = optimum(Age);
                 Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
